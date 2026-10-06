@@ -250,7 +250,7 @@ export const GamesHubHeader: React.FC<GamesHubHeaderProps> = ({
                     Tarzan na Floresta (Aventura de Cipós)
                   </h4>
                   <p className="text-slate-400 text-xs leading-relaxed">
-                    Balance em cipós pelo ar, aperte <strong className="text-slate-200">Espaço/W</strong> no ponto alto para se lançar sobre desfiladeiros e rios com crocodilos. Use <strong className="text-amber-300">X</strong> para atirar cocos contra onças e <strong className="text-emerald-300">Z</strong> para soltar o Grito da Selva!
+                    Balance em cipós pelo ar, aperte <strong className="text-slate-200">Espaço/W</strong> para salto acrobático, <strong className="text-amber-300">S/↓</strong> para deslizar na rama, <strong className="text-amber-300">X</strong> para atirar cocos normais e super flamejantes, pule em cogumelos saltitantes, use o macaquinho aliado e enfrente o lendário leopardo Sabor na Fase 3!
                   </p>
                 </div>
               </div>

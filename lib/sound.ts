@@ -2,6 +2,9 @@
 class SoundEngine {
   private ctx: AudioContext | null = null;
   private isMuted: boolean = false;
+  private jungleBgmTimer: number | null = null;
+  private jungleBgmStep: number = 0;
+  private isBgmPlaying: boolean = false;
 
   constructor() {
     if (typeof window !== 'undefined') {
@@ -619,6 +622,384 @@ class SoundEngine {
     } catch {
       // Ignore
     }
+  }
+
+  // Tarzan acrobatic somersault / double jump
+  public playTarzanDoubleJump() {
+    if (this.isMuted) return;
+    const ctx = this.getContext();
+    if (!ctx) return;
+    try {
+      const now = ctx.currentTime;
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(420, now);
+      osc.frequency.exponentialRampToValueAtTime(840, now + 0.16);
+      gain.gain.setValueAtTime(0.2, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.16);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start(now);
+      osc.stop(now + 0.16);
+    } catch {
+      // Ignore
+    }
+  }
+
+  // Tarzan jungle sprint / dash whoosh
+  public playTarzanDash() {
+    if (this.isMuted) return;
+    const ctx = this.getContext();
+    if (!ctx) return;
+    try {
+      const now = ctx.currentTime;
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = 'sawtooth';
+      osc.frequency.setValueAtTime(320, now);
+      osc.frequency.exponentialRampToValueAtTime(140, now + 0.14);
+      gain.gain.setValueAtTime(0.18, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.14);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start(now);
+      osc.stop(now + 0.14);
+    } catch {
+      // Ignore
+    }
+  }
+
+  // Tantor Elephant trumpet power roar
+  public playElephantRoar() {
+    if (this.isMuted) return;
+    const ctx = this.getContext();
+    if (!ctx) return;
+    try {
+      const now = ctx.currentTime;
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = 'sawtooth';
+      osc.frequency.setValueAtTime(260, now);
+      osc.frequency.linearRampToValueAtTime(380, now + 0.2);
+      osc.frequency.exponentialRampToValueAtTime(180, now + 0.45);
+      gain.gain.setValueAtTime(0.28, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.45);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start(now);
+      osc.stop(now + 0.45);
+    } catch {
+      // Ignore
+    }
+  }
+
+  // Checkpoint totem chime
+  public playCheckpointSound() {
+    if (this.isMuted) return;
+    const ctx = this.getContext();
+    if (!ctx) return;
+    try {
+      const now = ctx.currentTime;
+      const notes = [523.25, 659.25, 783.99, 1046.5];
+      notes.forEach((f, idx) => {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        const start = now + idx * 0.08;
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(f, start);
+        gain.gain.setValueAtTime(0.18, start);
+        gain.gain.exponentialRampToValueAtTime(0.001, start + 0.28);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(start);
+        osc.stop(start + 0.28);
+      });
+    } catch {
+      // Ignore
+    }
+  }
+
+  // Tarzan slide on log / branch
+  public playTarzanSlide() {
+    if (this.isMuted) return;
+    const ctx = this.getContext();
+    if (!ctx) return;
+    try {
+      const now = ctx.currentTime;
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = 'sawtooth';
+      osc.frequency.setValueAtTime(220, now);
+      osc.frequency.exponentialRampToValueAtTime(110, now + 0.22);
+      gain.gain.setValueAtTime(0.12, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.22);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start(now);
+      osc.stop(now + 0.22);
+    } catch {
+      // Ignore
+    }
+  }
+
+  // Bouncy jungle mushroom
+  public playTarzanMushroomBounce() {
+    if (this.isMuted) return;
+    const ctx = this.getContext();
+    if (!ctx) return;
+    try {
+      const now = ctx.currentTime;
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(260, now);
+      osc.frequency.exponentialRampToValueAtTime(780, now + 0.18);
+      gain.gain.setValueAtTime(0.25, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.18);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start(now);
+      osc.stop(now + 0.18);
+    } catch {
+      // Ignore
+    }
+  }
+
+  // Tarzan Jungle Combo sound
+  public playTarzanCombo(comboCount: number) {
+    if (this.isMuted) return;
+    const ctx = this.getContext();
+    if (!ctx) return;
+    try {
+      const now = ctx.currentTime;
+      const baseFreq = 330 * Math.pow(1.15, Math.min(comboCount, 7));
+      [baseFreq, baseFreq * 1.25, baseFreq * 1.5].forEach((f, idx) => {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        const start = now + idx * 0.05;
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(f, start);
+        gain.gain.setValueAtTime(0.16, start);
+        gain.gain.exponentialRampToValueAtTime(0.001, start + 0.18);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(start);
+        osc.stop(start + 0.18);
+      });
+    } catch {
+      // Ignore
+    }
+  }
+
+  // Golden relic / sacred jewel
+  public playTarzanGoldenRelic() {
+    if (this.isMuted) return;
+    const ctx = this.getContext();
+    if (!ctx) return;
+    try {
+      const now = ctx.currentTime;
+      [523.25, 659.25, 783.99, 1046.5, 1318.5].forEach((f, i) => {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        const start = now + i * 0.06;
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(f, start);
+        gain.gain.setValueAtTime(0.18, start);
+        gain.gain.exponentialRampToValueAtTime(0.001, start + 0.25);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(start);
+        osc.stop(start + 0.25);
+      });
+    } catch {
+      // Ignore
+    }
+  }
+
+  // Water splash
+  public playTarzanSplash() {
+    if (this.isMuted) return;
+    const ctx = this.getContext();
+    if (!ctx) return;
+    try {
+      const now = ctx.currentTime;
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(320, now);
+      osc.frequency.exponentialRampToValueAtTime(80, now + 0.25);
+      gain.gain.setValueAtTime(0.2, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.25);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start(now);
+      osc.stop(now + 0.25);
+    } catch {
+      // Ignore
+    }
+  }
+
+  // Super coconut explosion
+  public playTarzanSuperCoconutExplosion() {
+    if (this.isMuted) return;
+    const ctx = this.getContext();
+    if (!ctx) return;
+    try {
+      const now = ctx.currentTime;
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = 'sawtooth';
+      osc.frequency.setValueAtTime(180, now);
+      osc.frequency.exponentialRampToValueAtTime(40, now + 0.35);
+      gain.gain.setValueAtTime(0.35, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start(now);
+      osc.stop(now + 0.35);
+    } catch {
+      // Ignore
+    }
+  }
+
+  // Sabor / Boss roaring
+  public playTarzanBossRoar() {
+    if (this.isMuted) return;
+    const ctx = this.getContext();
+    if (!ctx) return;
+    try {
+      const now = ctx.currentTime;
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = 'sawtooth';
+      osc.frequency.setValueAtTime(110, now);
+      osc.frequency.linearRampToValueAtTime(160, now + 0.15);
+      osc.frequency.exponentialRampToValueAtTime(65, now + 0.45);
+      gain.gain.setValueAtTime(0.32, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.45);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start(now);
+      osc.stop(now + 0.45);
+    } catch {
+      // Ignore
+    }
+  }
+
+  // Sabor / Boss taking hit
+  public playTarzanBossHit() {
+    if (this.isMuted) return;
+    const ctx = this.getContext();
+    if (!ctx) return;
+    try {
+      const now = ctx.currentTime;
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = 'square';
+      osc.frequency.setValueAtTime(190, now);
+      osc.frequency.exponentialRampToValueAtTime(80, now + 0.15);
+      gain.gain.setValueAtTime(0.24, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.15);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start(now);
+      osc.stop(now + 0.15);
+    } catch {
+      // Ignore
+    }
+  }
+
+  // Jungle Tribal Drum Ambient Beat (Batucada da Selva)
+  public startJungleTribalBGM() {
+    if (this.isBgmPlaying || typeof window === 'undefined') return;
+    this.isBgmPlaying = true;
+    this.jungleBgmStep = 0;
+
+    const tick = () => {
+      if (!this.isBgmPlaying) return;
+      if (!this.isMuted) {
+        const ctx = this.getContext();
+        if (ctx) {
+          try {
+            const now = ctx.currentTime;
+            const step = this.jungleBgmStep % 8;
+
+            // Step 0 and 4: Low Djembe drum pulse
+            if (step === 0 || step === 4) {
+              const osc = ctx.createOscillator();
+              const gain = ctx.createGain();
+              osc.type = 'triangle';
+              osc.frequency.setValueAtTime(step === 0 ? 82 : 98, now);
+              osc.frequency.exponentialRampToValueAtTime(45, now + 0.18);
+              gain.gain.setValueAtTime(0.07, now);
+              gain.gain.exponentialRampToValueAtTime(0.001, now + 0.18);
+              osc.connect(gain);
+              gain.connect(ctx.destination);
+              osc.start(now);
+              osc.stop(now + 0.18);
+            }
+
+            // Step 2 and 6: Mid Conga slap
+            if (step === 2 || step === 6) {
+              const osc = ctx.createOscillator();
+              const gain = ctx.createGain();
+              osc.type = 'sine';
+              osc.frequency.setValueAtTime(step === 2 ? 180 : 220, now);
+              osc.frequency.exponentialRampToValueAtTime(120, now + 0.1);
+              gain.gain.setValueAtTime(0.06, now);
+              gain.gain.exponentialRampToValueAtTime(0.001, now + 0.1);
+              osc.connect(gain);
+              gain.connect(ctx.destination);
+              osc.start(now);
+              osc.stop(now + 0.1);
+            }
+
+            // Syncopated bamboo woodblock
+            if (step === 3 || step === 7) {
+              const osc = ctx.createOscillator();
+              const gain = ctx.createGain();
+              osc.type = 'triangle';
+              osc.frequency.setValueAtTime(440, now);
+              gain.gain.setValueAtTime(0.04, now);
+              gain.gain.exponentialRampToValueAtTime(0.001, now + 0.05);
+              osc.connect(gain);
+              gain.connect(ctx.destination);
+              osc.start(now);
+              osc.stop(now + 0.05);
+            }
+          } catch {
+            // Ignore
+          }
+        }
+      }
+      this.jungleBgmStep = (this.jungleBgmStep + 1) % 16;
+      this.jungleBgmTimer = window.setTimeout(tick, 220); // ~135 BPM 8th-notes
+    };
+
+    tick();
+  }
+
+  public stopJungleTribalBGM() {
+    this.isBgmPlaying = false;
+    if (this.jungleBgmTimer !== null) {
+      clearTimeout(this.jungleBgmTimer);
+      this.jungleBgmTimer = null;
+    }
+  }
+
+  public toggleJungleTribalBGM(): boolean {
+    if (this.isBgmPlaying) {
+      this.stopJungleTribalBGM();
+      return false;
+    } else {
+      this.startJungleTribalBGM();
+      return true;
+    }
+  }
+
+  public isJungleBGMActive(): boolean {
+    return this.isBgmPlaying;
   }
 
   // Duolingo-style crisp two-tone correct chime (C5 -> E5 -> G5)

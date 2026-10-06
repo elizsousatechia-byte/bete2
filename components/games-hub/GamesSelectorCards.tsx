@@ -151,7 +151,7 @@ export const GamesSelectorCards: React.FC<GamesSelectorCardsProps> = ({
                   </span>
                 </div>
                 <p className="text-xs text-slate-400 mt-0.5 leading-relaxed line-clamp-1">
-                  Balance em cipós, atire cocos, dê o grito da selva e vença os crocodilos!
+                  Balance em cipós, deslize em galhos, pule em cogumelos, atire super cocos e enfrente o chefe Sabor!
                 </p>
                 <div className="flex items-center space-x-1 mt-2 text-[11px] text-slate-400">
                   <Trophy className="w-3 h-3 text-amber-400" />

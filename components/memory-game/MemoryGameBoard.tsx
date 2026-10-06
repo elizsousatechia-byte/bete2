@@ -18,7 +18,7 @@ import { Play } from 'lucide-react';
 import { motion } from 'motion/react';
 
 export default function MemoryGameBoard() {
-  const [activeGame, setActiveGame] = useState<ActiveGameType>('duo-english');
+  const [activeGame, setActiveGame] = useState<ActiveGameType>('memory-animals');
   const [theme, setTheme] = useState<GameTheme>('animals_house');
   const [pairCount, setPairCount] = useState<number>(32);
   const [cards, setCards] = useState<CardState[]>(() => generateDeck(32, 'animals_house'));
@@ -33,8 +33,8 @@ export default function MemoryGameBoard() {
   const [showWordsOnBoard, setShowWordsOnBoard] = useState<boolean>(false);
   const [isWordsSoundModalOpen, setIsWordsSoundModalOpen] = useState<boolean>(false);
   const [isStudyModalOpen, setIsStudyModalOpen] = useState<boolean>(false);
-  const [textCase, setTextCase] = useState<'uppercase' | 'normal'>('normal');
-  const [showSyllables, setShowSyllables] = useState<boolean>(false);
+  const [textCase, setTextCase] = useState<'uppercase' | 'normal'>('uppercase');
+  const [showSyllables, setShowSyllables] = useState<boolean>(true);
   const [combo, setCombo] = useState<number>(1);
   const [maxCombo, setMaxCombo] = useState<number>(1);
   const [hintsRemaining, setHintsRemaining] = useState<number>(2);

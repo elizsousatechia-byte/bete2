@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { X, Volume2, Search, Play, Square, Sparkles } from 'lucide-react';
-import { CardDefinition, ANIMALS_DATABASE, HOUSEHOLD_DATABASE, ANIMALS_AND_HOUSE_DATABASE, MARIO_DATABASE, CLASSIC_DATABASE, GameTheme } from '@/lib/game-data';
+import { CardDefinition, ANIMALS_DATABASE, HOUSEHOLD_DATABASE, ANIMALS_AND_HOUSE_DATABASE, MARIO_DATABASE, CLASSIC_DATABASE, GameTheme, STUDY_READING_DATA } from '@/lib/game-data';
 import { soundManager } from '@/lib/sound';
 
 interface WordsSoundModalProps {
