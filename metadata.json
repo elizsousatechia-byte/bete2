@@ -1,0 +1,6 @@
+{
+  "name": "Arena Jogos - Jogo da Memória",
+  "description": "Portal de jogos com Jogo da Memória 32 Pares com Animais e Objetos de Casa, Duo Inglês para aprender inglês estilo Duolingo com pronúncia em áudio, Tarzan na Floresta e Super Mario Bros 2D.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
